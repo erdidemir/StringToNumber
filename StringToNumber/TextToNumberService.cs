@@ -11,19 +11,22 @@ namespace StringToNumber
 {
     public class TextToNumberService
     {
-        string[] digits = { "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" };
+        string[] digits = { "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
         //index +10
-        string[] extendedDigits = { "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" }; 
+        string[] extendedDigits = { "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" }; 
 
         //index x 10
-        string[] tensWords = { "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+        string[] tensWords = { "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+
+        // x 1000
+        string[] thousands = { "thousand", "thousands" };
 
         // x 10000000
-        string millions = "millions";
+        string[] millions = { "million", "millions" }; 
 
         // x 10000000000
-        string billions = "billions";
+        string[] billions = { "billion", "billions" };
 
         public string ConvertTextToNumber(string p)
         {
@@ -39,47 +42,66 @@ namespace StringToNumber
 
             foreach (var item in p.Split( ))
             {
-                if(digits.Contains(item))
+              
+                if (digits.Contains(item.ToLower()))
                 {
                     str += item + " ";
 
                     digitNumber = Array.IndexOf(digits, item);
+
+                    number = digitNumber;
                 }
 
-                else if (extendedDigits.Contains(item))
+                else if (extendedDigits.Contains(item.ToLower()))
                 {
                     str += item + " ";
 
                     extendedDigitNumber = Array.IndexOf(extendedDigits, item);
 
                     extendedDigitNumber = extendedDigitNumber + 10;
+
+                    number = extendedDigitNumber;
                 }
 
-                else if (tensWords.Contains(item))
+                else if (tensWords.Contains(item.ToLower()))
                 {
+                    str += item + " ";
+
                     tensWordNumber = Array.IndexOf(tensWords, item);
 
                     tensWordNumber = tensWordNumber * 10;
-                }
-                else if (tensWords.Contains(millions))
-                {
 
-                    number = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
-                    number = number * 10000000;
+                    number = tensWordNumber;
                 }
-                else if (tensWords.Contains(billions))
+                else if (thousands.Contains(item.ToLower()))
                 {
-
+                    str += item + " ";
                     number = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
-                    number = number * 10000000000;
+                    number = number * 1000;
+                }
+                else if (millions.Contains(item.ToLower()))
+                {
+                    str += item + " ";
+                    number = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
+                    number = number * 1000000;
+                }
+                else if (billions.Contains(item.ToLower()))
+                {
+                    str += item + " ";
+                    number = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
+                    number = number * 1000000000;
                 }
                 else
                 {
-                    number = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
                     if (number > 0)
                     {
+                        str = str.Remove(str.Length - 1);
                         result = result.Replace(str, number.ToString());
+                        digitNumber = 0;
+                        extendedDigitNumber = 0;
+                        tensWordNumber = 0;
                         number = 0;
+                        str = "";
                     }
                 }
             }
