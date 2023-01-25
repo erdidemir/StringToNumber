@@ -48,8 +48,6 @@ namespace StringToNumber
                     str += item + " ";
 
                     digitNumber = Array.IndexOf(digits, item);
-
-                    number+= digitNumber;
                 }
 
                 else if (extendedDigits.Contains(item.ToLower()))
@@ -57,10 +55,7 @@ namespace StringToNumber
                     str += item + " ";
 
                     extendedDigitNumber = Array.IndexOf(extendedDigits, item);
-
                     extendedDigitNumber = extendedDigitNumber + 10;
-
-                    number+= extendedDigitNumber;
                 }
 
                 else if (tensWords.Contains(item.ToLower()))
@@ -68,31 +63,44 @@ namespace StringToNumber
                     str += item + " ";
 
                     tensWordNumber = Array.IndexOf(tensWords, item);
-
                     tensWordNumber = tensWordNumber * 10;
 
-                    number+= tensWordNumber;
                 }
                 else if (thousands.Contains(item.ToLower()))
                 {
                     str += item + " ";
-                    number = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
-                    number = number * 1000;
+                    var thousandNumber = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
+                    number+= thousandNumber * 1000;
+                    digitNumber = 0;
+                    extendedDigitNumber = 0;
+                    tensWordNumber = 0;
                 }
                 else if (millions.Contains(item.ToLower()))
                 {
                     str += item + " ";
-                    number = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
-                    number = number * 1000000;
+                    var millioNumber = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
+                    number+= millioNumber * 1000000;
+                    digitNumber = 0;
+                    extendedDigitNumber = 0;
+                    tensWordNumber = 0;
                 }
                 else if (billions.Contains(item.ToLower()))
                 {
                     str += item + " ";
-                    number = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
-                    number = number * 1000000000;
+                    var billionNumber = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
+                    number+= billionNumber * 1000000000;
+                    digitNumber = 0;
+                    extendedDigitNumber = 0;
+                    tensWordNumber = 0;
                 }
                 else
                 {
+                    var lastNumber = GetNumber(digitNumber, extendedDigitNumber, tensWordNumber);
+                    if (lastNumber > 0)
+                    {
+                        number += lastNumber;
+                    }
+
                     if (number > 0)
                     {
                         str = str.Remove(str.Length - 1);

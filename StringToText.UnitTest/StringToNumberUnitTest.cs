@@ -89,6 +89,19 @@ namespace StringToText.UnitTest
             Assert.Equal(output, result);
         }
 
-       
+        [Fact]
+        public void WhenGivingOneMillionOneThousandOne_10001000_ShouldBeReturn()
+        {
+            TextToNumberService textToNumberService = new TextToNumberService();
+
+
+            string input = "He paid one million one thousand one for one such cars.";
+            string output = "He paid 1001001 for 1 such cars.";
+
+            var result = textToNumberService.ConvertTextToNumber(input);
+
+            Assert.Equal(output, result);
+        }
+
     }
 }
