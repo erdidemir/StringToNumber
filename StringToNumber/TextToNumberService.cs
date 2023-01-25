@@ -49,7 +49,7 @@ namespace StringToNumber
 
                     digitNumber = Array.IndexOf(digits, item);
 
-                    number = digitNumber;
+                    number+= digitNumber;
                 }
 
                 else if (extendedDigits.Contains(item.ToLower()))
@@ -60,7 +60,7 @@ namespace StringToNumber
 
                     extendedDigitNumber = extendedDigitNumber + 10;
 
-                    number = extendedDigitNumber;
+                    number+= extendedDigitNumber;
                 }
 
                 else if (tensWords.Contains(item.ToLower()))
@@ -71,7 +71,7 @@ namespace StringToNumber
 
                     tensWordNumber = tensWordNumber * 10;
 
-                    number = tensWordNumber;
+                    number+= tensWordNumber;
                 }
                 else if (thousands.Contains(item.ToLower()))
                 {

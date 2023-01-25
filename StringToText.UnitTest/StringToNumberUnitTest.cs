@@ -46,5 +46,49 @@ namespace StringToText.UnitTest
 
             Assert.Equal(output, result);
         }
+
+        [Fact]
+        public void WhenGivingOneMillionTen_10000010_ShouldBeReturn()
+        {
+            TextToNumberService textToNumberService = new TextToNumberService();
+
+
+            string input = "He paid one million ten for ten such cars.";
+            string output = "He paid 1000010 for 10 such cars.";
+
+            var result = textToNumberService.ConvertTextToNumber(input);
+
+            Assert.Equal(output, result);
+        }
+
+        [Fact]
+        public void WhenGivingEightMillionTen_80000080_ShouldBeReturn()
+        {
+            TextToNumberService textToNumberService = new TextToNumberService();
+
+
+            string input = "He paid eight million eighty for eight such cars.";
+            string output = "He paid 8000080 for 8 such cars.";
+
+            var result = textToNumberService.ConvertTextToNumber(input);
+
+            Assert.Equal(output, result);
+        }
+
+        [Fact]
+        public void WhenGivingNineMillionTen_90000090_ShouldBeReturn()
+        {
+            TextToNumberService textToNumberService = new TextToNumberService();
+
+
+            string input = "He paid nine million ninety for nine such cars.";
+            string output = "He paid 9000090 for 9 such cars.";
+
+            var result = textToNumberService.ConvertTextToNumber(input);
+
+            Assert.Equal(output, result);
+        }
+
+       
     }
 }
